@@ -1,0 +1,36 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: hm-gateway
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost
+    gateway:
+      service:
+        logging:
+          level:
+            org.springframework.cloud.gateway: DEBUG
+            org.springframework.web.reactive: DEBUG
+            reactor.netty.http.server.HttpServer: DEBUG
+            org.springframework.web.filter: DEBUG
+      routes:
+        - id: item-service
+          uri:
+            lb://item-service
+          predicates:
+            - Path=/items/**,/search/**
+
+logging:
+  level:
+    com.hmall: debug
+  pattern:
+    dateformat: HH:mm:ss:SSS
+  file:
+    path: "logs/${spring.application.name}"
+
+
+# keytool -genkeypair -alias hmall -keyalg RSA -keypass hmall123 -keystore hmall.jks -storepass hmall123
