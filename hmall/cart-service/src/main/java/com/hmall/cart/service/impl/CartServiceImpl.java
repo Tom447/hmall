@@ -11,6 +11,7 @@ import com.hmall.cart.domain.po.Cart;
 import com.hmall.cart.domain.vo.CartVO;
 import com.hmall.cart.mapper.CartMapper;
 import com.hmall.cart.service.ICartService;
+import com.hmall.cart.service.ItemClient;
 import com.hmall.common.exception.BadRequestException;
 import com.hmall.common.exception.BizIllegalException;
 import com.hmall.common.utils.BeanUtils;
@@ -46,9 +47,12 @@ import java.util.stream.Collectors;
 public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements ICartService {
 
 //    private final IItemService itemService;
-    private final RestTemplate restTemplate;
+//    private final RestTemplate restTemplate;
+//
+//    private final DiscoveryClient discoveryClient;
 
-    private final DiscoveryClient discoveryClient;
+    private final ItemClient itemClient;
+
 
     @Override
     public void addItem2Cart(CartFormDTO cartFormDTO) {
@@ -99,7 +103,7 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         Set<Long> itemIds = vos.stream().map(CartVO::getItemId).collect(Collectors.toSet());
         // 2.查询商品
         // 2.1获取服务实例的列表
-        List<ServiceInstance> instances = discoveryClient.getInstances("item-service");
+/*        List<ServiceInstance> instances = discoveryClient.getInstances("item-service");
         // 2.2手写负载均衡
         ServiceInstance instance = instances.get(RandomUtil.randomInt(instances.size()));
         // 2.3获取实例的ip和端口
@@ -115,7 +119,10 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         if(!response.getStatusCode().is1xxInformational()){
             return;
         }
-        List<ItemDTO> items = response.getBody();
+        List<ItemDTO> items = response.getBody();*/
+
+        //远程的跨服务调用
+        List<ItemDTO> items = itemClient.queryItemByIds(itemIds);
         if (CollUtils.isEmpty(items)) {
             throw new BadRequestException("购物车中商品不存在！");
         }
