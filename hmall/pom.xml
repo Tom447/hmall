@@ -35,6 +35,8 @@
         <mysql.version>8.0.23</mysql.version>
         <!-- 显式锁定 mybatis-spring 版本 -->
         <mybatis-spring.version>2.0.6</mybatis-spring.version>
+        <!-- nacos -->
+
 
     </properties>
 
@@ -92,6 +94,34 @@
         </dependency>
     </dependencies>
 
+    <!-- 在 <project> 标签下直接添加 -->
+    <repositories>
+        <repository>
+            <id>aliyun</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyun</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+
     <build>
         <pluginManagement>
             <plugins>
@@ -107,4 +137,5 @@
             </plugins>
         </pluginManagement>
     </build>
+
 </project>

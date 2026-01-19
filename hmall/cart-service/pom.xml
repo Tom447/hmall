@@ -68,12 +68,18 @@
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
             <version>2.0.6</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.heima</groupId>
             <artifactId>hm-service</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>
+        </dependency>
+<!--        nacos微服务发现-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
     </dependencies>
     <build>
