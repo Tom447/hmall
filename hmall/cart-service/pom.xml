@@ -76,6 +76,12 @@
             <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.heima</groupId>
+            <artifactId>hm-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 <!--        nacos微服务发现-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

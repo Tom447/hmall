@@ -58,9 +58,13 @@ public class LoginGlobalFilter implements GlobalFilter, Ordered {
             return response.setComplete();
         }
         //TODO 5. 传递用户信息到下游服务
-
-        //6
-        return null;
+        String userInfo = userId.toString();
+        ServerWebExchange exc = exchange
+                .mutate()
+                .request(builder -> builder.header("user-info", userInfo))
+                .build();
+        //6. 放行
+        return chain.filter(exc);
     }
 
     private boolean isAllowPath(ServerHttpRequest request) {
