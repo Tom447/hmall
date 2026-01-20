@@ -16,6 +16,9 @@ spring:
             lb://item-service
           predicates:
             - Path=/items/**,/search/**
+      default-filters:
+        - AddRequestHeader=truth, HuGeHandSome is very HandSome!
+
 
 logging:
   level:
