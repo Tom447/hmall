@@ -16,8 +16,19 @@ spring:
             lb://item-service
           predicates:
             - Path=/items/**,/search/**
+        - id: cart-service
+          uri:
+            lb://cart-service
+          predicates:
+            - Path=/carts/**
       default-filters:
         - AddRequestHeader=truth, HuGeHandSome is very HandSome!
+        - PrintAny=1,2,3
+#        - name: PrintAny
+#          args:
+#            - a: 1
+#              b: 2
+#              c: 3
 
 
 logging:
@@ -32,5 +43,18 @@ logging:
   file:
     path: "logs/${spring.application.name}"
 
+#jwt验证的配置
+hm:
+  jwt:
+    location: classpath:hmall.jks
+    alias: hmall
+    password: hmall123
+    tokenTTL: 30m
+  auth:
+    excludePaths:
+      - /search/**
+      - /users/login
+      - /items/**
+      - /hi
 
 # keytool -genkeypair -alias hmall -keyalg RSA -keypass hmall123 -keystore hmall.jks -storepass hmall123
