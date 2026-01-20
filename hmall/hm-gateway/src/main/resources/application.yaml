@@ -10,13 +10,6 @@ spring:
       discovery:
         server-addr: localhost
     gateway:
-      service:
-        logging:
-          level:
-            org.springframework.cloud.gateway: DEBUG
-            org.springframework.web.reactive: DEBUG
-            reactor.netty.http.server.HttpServer: DEBUG
-            org.springframework.web.filter: DEBUG
       routes:
         - id: item-service
           uri:
@@ -27,6 +20,10 @@ spring:
 logging:
   level:
     com.hmall: debug
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.netty.http.server.HttpServer: DEBUG
+    org.springframework.web.filter: DEBUG
   pattern:
     dateformat: HH:mm:ss:SSS
   file:
