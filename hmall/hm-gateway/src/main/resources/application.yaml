@@ -24,6 +24,14 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/users/**,/addresses/**
+        - id: trade-service
+          uri: lb://trade-service
+          predicates:
+            - Path=/orders/**
+        - id: pay-service
+          uri: lb://pay-service
+          predicates:
+            - Path=/pay-orders/**
       default-filters:
         - AddRequestHeader=truth, HuGeHandSome is very HandSome!
         - PrintAny=1,2,3
