@@ -7,12 +7,14 @@ import com.hmall.api.dto.OrderDetailDTO;
 import com.hmall.common.exception.BizIllegalException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 @Slf4j
+@Component
 public class ItemClientFallbackFactory implements FallbackFactory<ItemClient> {
 
     @Override

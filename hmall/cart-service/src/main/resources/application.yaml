@@ -14,4 +14,8 @@ spring:
     sentinel:
       transport:
         dashboard: localhost:8091 #控制台地址
+      http-method-specify: true   #请求方式前缀
+feign:
+  sentinel:
+    enabled: true  # 开启Feign的的sentinel的整合
 
