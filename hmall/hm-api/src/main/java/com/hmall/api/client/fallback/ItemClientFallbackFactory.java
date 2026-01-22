@@ -14,24 +14,28 @@ import java.util.Collections;
 import java.util.List;
 
 @Slf4j
-@Component
 public class ItemClientFallbackFactory implements FallbackFactory<ItemClient> {
 
     @Override
     public ItemClient create(Throwable cause) {
-        log.error("远程调用异常", cause);
+        log.error("远程调用日常");
         return new ItemClient() {
+
             @Override
             public List<ItemDTO> queryItemByIds(Collection<Long> ids) {
-                //查询出现异常，返回空集合
-                log.error("查询出现异常", cause);
+                // 查询出现异常，返回一个空集合
+                log.error("查询商品异常", cause);
                 return Collections.emptyList();
             }
 
+
+            //扣库存的
             @Override
             public void deductStock(List<OrderDetailDTO> items) {
                 throw new BizIllegalException(cause);
             }
         };
     }
+
+
 }

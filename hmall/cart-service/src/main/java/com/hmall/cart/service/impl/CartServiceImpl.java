@@ -119,7 +119,8 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         //远程的跨服务调用
         List<ItemDTO> items = itemClient.queryItemByIds(itemIds);
         if (CollUtils.isEmpty(items)) {
-            throw new BadRequestException("购物车中商品不存在！");
+           /* throw new BadRequestException("购物车中商品不存在！");*/
+            return;
         }
         // 3.转为 id 到 item的map
         Map<Long, ItemDTO> itemMap = items.stream().collect(Collectors.toMap(ItemDTO::getId, Function.identity()));
