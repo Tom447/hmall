@@ -9,3 +9,9 @@ hm:
   cart:
       maxSize: 2  #购物车购物上限
 # keytool -genkeypair -alias hmall -keyalg RSA -keypass hmall123 -keystore hmall.jks -storepass hmall123
+spring:
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8091 #控制台地址
+
