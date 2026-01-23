@@ -1,6 +1,6 @@
 spring:
   application:
-    name: cart-service  #服务名称
+    name: item-service  #服务名称
   profiles:
     active: dev
   cloud:
@@ -12,6 +12,5 @@ spring:
           - data-id: shared-jdbc.yaml
           - data-id: shared-log.yaml
           - data-id: shared-swagger.yaml
-          - data-id: shared-feign.yaml
           - data-id: shared-seata.yaml
 
