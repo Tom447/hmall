@@ -1,5 +1,5 @@
 server:
-  port: 8084
+  port: 8085
 spring:
   application:
     name: user-service # 服务名称
