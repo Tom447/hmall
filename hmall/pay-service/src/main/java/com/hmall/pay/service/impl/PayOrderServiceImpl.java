@@ -60,11 +60,15 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> i
         if (!success) {
             throw new BizIllegalException("交易已支付或关闭！");
         }
+
+        // 假设 bizOrderNo 是 Long 类型
+        Long orderId = po.getBizOrderNo();
+
         // 5.修改订单状态
         //tradeClient.markOrderPaySuccess(po.getBizOrderNo());
         try {
             //捕获异常，这样另一边全局事务就不会回滚了，就不会产生级联反应
-            rabbitTemplate.convertAndSend("pay.topic", "pay.success", po.getBizOrderNo());
+            rabbitTemplate.convertAndSend("pay.topic", "pay.success", orderId);
         } catch (AmqpException e) {
             log.error("支付成功，但是通知交易服务失败", e);
         }
