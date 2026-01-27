@@ -11,6 +11,8 @@ import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalTime;
+
 @Component
 @RequiredArgsConstructor
 public class PayStatusListener {
@@ -22,7 +24,7 @@ public class PayStatusListener {
             key = "pay.success"
     ))
     public void listenOrderPay(Long orderId){
-        //1. 查询订单
+  /*      //1. 查询订单
         Order order = orderService.getById(orderId);
         System.out.println("监听器生效");
         //2.判断订单状态是否为未支付
@@ -31,6 +33,16 @@ public class PayStatusListener {
             return;
         }
         //3. 如果未支付，标记订单状态为已支付
-        orderService.markOrderPaySuccess(orderId);
+        orderService.markOrderPaySuccess(orderId);*/
+
+        //考虑到并发问题，会出现多次修改status的问题
+        //使用乐观锁,重复执行只会执行一次
+        //update order set status = 2 where id = ？ AND status = 1
+        orderService.lambdaUpdate().set(Order::getStatus, 2)
+        .eq(Order::getId, orderId)
+                .eq(Order::getPayTime, LocalTime.now())
+                .eq(Order::getStatus, 1)
+                .update();
+
     }
 }
