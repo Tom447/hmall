@@ -114,6 +114,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         updateById(order);
     }
 
+    //取消订单，和扣减对应的库存
+    @Override
+//    @GlobalTransactional
+    public void cancelOrder(Long orderId) {
+        //1.取消订单
+        lambdaUpdate()
+                    .set(Order::getStatus, 5)
+                    .set(Order::getCloseTime, LocalDateTime.now())
+                    .eq(Order::getId, orderId)
+                    .update();
+        //TODO 2.恢复库存
+    }
+
     private List<OrderDetail> buildDetails(Long orderId, List<ItemDTO> items, Map<Long, Integer> numMap) {
         List<OrderDetail> details = new ArrayList<>(items.size());
         for (ItemDTO item : items) {

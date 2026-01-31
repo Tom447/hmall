@@ -32,4 +32,8 @@ public class MultiDelayMessage<T> {
         return delayMillis.remove(0);
     }
 
+    public boolean hasNextDelay(){
+        return delayMillis.size() > 0;
+    }
+
 }
