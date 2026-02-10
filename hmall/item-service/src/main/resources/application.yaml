@@ -7,3 +7,12 @@ hm:
     title: 商品管理文档
     package: com.hmall.item.controller
 
+spring:
+  rabbitmq:
+    host: localhost           # RabbitMQ 服务器地址（默认本地）
+    port: 5672               # 默认端口
+    username: hmall         # 默认用户名
+    password: hmall          # 默认密码
+    virtual-host: /hmall          # 虚拟主机，默认是 /
+    connection-timeout: 15000 # 连接超时时间（可选）
+

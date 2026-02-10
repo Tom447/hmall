@@ -2,6 +2,7 @@ package com.hmall.item.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hmall.common.constants.MqConstants;
 import com.hmall.common.domain.PageDTO;
 import com.hmall.common.domain.PageQuery;
 import com.hmall.common.utils.BeanUtils;
@@ -12,6 +13,7 @@ import com.hmall.item.service.IItemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +25,8 @@ import java.util.List;
 public class ItemController {
 
     private final IItemService itemService;
+
+    private final RabbitTemplate rabbitTemplate;
 
     @ApiOperation("分页查询商品")
     @GetMapping("/page")
@@ -64,7 +68,13 @@ public class ItemController {
         Item item = new Item();
         item.setId(id);
         item.setStatus(status);
+        //修改为elasticsearch接受，但需要提前定义好exchange和queue
         itemService.updateById(item);
+
+        //数据库执行完了，才执行发送消息
+        //status 1是上架，2是下架
+        String routingKey = status == 1 ? MqConstants.ITEM_UP_KEY : MqConstants.ITEM_DOWN_KEY;
+        rabbitTemplate.convertAndSend(MqConstants.ITEM_EXCHANGE_NAME, routingKey, id);
     }
 
     @ApiOperation("更新商品")

@@ -21,4 +21,5 @@ public interface ItemClient {
     @ApiOperation("批量扣减库存")
     @PutMapping("/items/stock/deduct")
     void deductStock(@RequestBody List<OrderDetailDTO> items);
+
 }

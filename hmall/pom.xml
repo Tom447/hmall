@@ -18,6 +18,7 @@
         <module>pay-service</module>
         <module>trade-service</module>
         <module>user-service</module>
+        <module>search-service</module>
     </modules>
 
     <parent>
@@ -40,7 +41,8 @@
         <mysql.version>8.0.23</mysql.version>
         <!-- 显式锁定 mybatis-spring 版本 -->
         <mybatis-spring.version>2.0.6</mybatis-spring.version>
-        <!-- nacos -->
+        <!--elasticsearch-->
+        <elasticsearch.version>7.12.1</elasticsearch.version>
 
 
     </properties>

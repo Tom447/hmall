@@ -19,7 +19,7 @@ import java.time.LocalTime;
 @Component
 @RequiredArgsConstructor
 public class PayStatusListener {
-
+ 
     private final IOrderService orderService;
     @RabbitListener(bindings = @QueueBinding(
             value = @Queue(value = "mark.order.pay.queue", durable = "true"),

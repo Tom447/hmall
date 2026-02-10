@@ -1,0 +1,28 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: search-service
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+  rabbitmq:
+    host: localhost
+    port: 5672
+    virtual-host: /hmall
+    username: hmall
+    password: hmall
+    listener:
+      simple:
+        prefetch: 1
+        retry:
+          enabled: true #开启消费者失败重试
+hm:
+  swagger:
+    title: 购物车服务接口文档
+    package: com.hmall.search.controller
+  db:
+    database: hm-item
+
+
+# keytool -genkeypair -alias hmall -keyalg RSA -keypass hmall123 -keystore hmall.jks -storepass hmall123
